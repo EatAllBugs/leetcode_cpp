@@ -25,36 +25,41 @@ using namespace std;
 
 class Solution {
  public:
-  bool isValidSudoku(vector<vector<char> > &board) {
-    vector<vector<bool> >  row(9, vector<bool>(9, false));
-    vector<vector<bool> > col(row);
-    vector<vector<bool> > square(row);
-    for (int i = 0; i < 9; i++) {
-      for (int j = 0; j < 9; j++) {
-        if (board[i][j] == '.') {
-          continue;
-        }
-        int num = board[i][j] - '1';
-        int block = i / 3 * 3 + j / 3;
-        if (row[i][num] || col[j][num] || square[block][num]) {
-          return false;
-        } else {
-          row[i][num] = true;
-          col[j][num] = true;
-          square[block][num] = true;
-        }
+  vector<string> findRelativeRanks(vector<int> &score) {
+    int n = score.size();
+    vector<string> res(score.size());
+    vector<int> order;
+    for(int i = 0; i < n; i++){
+        order.push_back(i);
+    }
+    sort(order.begin(), order.end(), [&score](const int &a, const int &b) {
+      return score[a] > score[b];
+    });
+    for (int i = 0; i < n; i++) {
+      switch (i) {
+        case 0:
+          res[order[i]] = "Gold Medal";
+          break;
+        case 1:
+          res[order[i]] = "Silver Medal";
+          break;
+        case 2:
+          res[order[i]] = "Bronze Medal";
+          break;
+        default:
+          res[order[i]] = to_string(i + 1);
+          break;
       }
     }
-    return true;
+    return res;
   }
 };
 
 int main() {
   int n = 101;
   vector<int> num = {1, 2, 3, 4, 5};
-  string s = "sascacamca";
   Solution app;
-  string ans = app.isValidSudoku(n);
-  cout << ans << endl;
+  vector<string> ans = app.findRelativeRanks(num);
+  cout << ans.size() << endl;
   return 0;
 }

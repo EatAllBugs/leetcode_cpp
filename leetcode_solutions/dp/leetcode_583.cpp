@@ -47,8 +47,8 @@ class Solution {
 int main() {
   int n = 101;
   vector<int> num = {1, 2, 3, 4, 5};
-  string word1 = "seatasac";
-  string word2 = "eattascsasv";
+  string word1 = "sac";
+  string word2 = "tcsasv";
   Solution app;
   int ans = app.minDistance(word1, word2);
   cout << ans << endl;
